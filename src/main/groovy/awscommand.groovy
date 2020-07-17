@@ -32,7 +32,7 @@ final def arguments = props['arguments']
 
 //example commandHelper
 CommandHelper cmdHelper = new CommandHelper(new File("."))
-def cli = ['${awscli}']
+def cli = [awscli]
 
 cli << command
 cli << subcommand
