@@ -24,16 +24,22 @@ final def props = airTool.getStepProperties()
  * to the the String "World"
  * 
  */
-final def name = props['name'] ?: "World"
+final def awscli = props['awscli']
+final def command = props['command']
+final def subcommand = props['subcommand']
+final def arguments = props['arguments']
+
 
 //example commandHelper
 CommandHelper cmdHelper = new CommandHelper(new File("."))
-def command = ['aws']
-def message = "help"
-command << message
+def cli = ['${awscli}']
 
-cmdHelper.runCommand("Running aws help", command)
+cli << command
+cli << subcommand
+cli << arguments
+
+cmdHelper.runCommand("Running aws cli", cli)
 
 //Set an output property
-airTool.setOutputProperty("outPropName", "outPropValue");
+airTool.setOutputProperty("executed", "${cli}");
 airTool.storeOutputProperties();//write the output properties to the file
