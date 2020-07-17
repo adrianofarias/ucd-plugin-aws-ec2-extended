@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://www.urbancode.com/PluginXMLSchema_v1"
+        xmlns:server="http://www.urbancode.com/PluginServerXMLSchema_v1"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <header>
+    <identifier id="com.urbancode.air.plugin.aws.ec2.extended" version="@API_VERSION@" name="AWS EC2 Extended"/>
+    <description>Amazon EC2 Extended plugin</description>
+    <tag>Cloud/AmazonEC2</tag>
+  </header>
+
+  <step-type name="AWSCLI Command">
+    <description>Echo out a aws help command output</description>
+    <properties>
+      <property name="awscli">
+        <property-ui type="textBox"
+                     label="Caminho do AWSCLI"
+                     description="Caminho para acionamento do AWSCLI"
+                     default-value="aws"/>
+      </property>
+      <property name="command">
+        <property-ui type="textBox"
+                     label="Comando do AWSCLI"
+                     description="Comando a ser executado pelo AWSCLI"
+                     default-value="ec2"/>
+      </property>
+      <property name="subcommand">
+        <property-ui  type="textBox"
+                      label="Sub-Comando do AWSCLI"
+                      description="Sub-Comando a ser executado pelo AWSCLI"/>
+      </property>
+      <property name="arguments">
+        <property-ui  type="textBox"
+                      label="Argumentos"
+                      description="Argumentos do comando"/>
+      </property>
+    </properties>
+    <post-processing>
+      <![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]>
+    </post-processing>
+
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar"/>
+      <arg file="awscommand.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+</plugin>

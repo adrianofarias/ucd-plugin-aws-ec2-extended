@@ -1,14 +1,15 @@
-# IBM UrbanCode Deploy Plug-in Template
+# IBM UrbanCode Deploy AWS EC2 Extended plugin
 ---
 
-The UrbanCode Deploy Plug-in Template project is a sample project that can be forked and used as a base for community plug-ins.
+The AWS EC2 Extended project is a customized plugin for AWS EC2 to cover more tasks than the original plugin.
 
-Create your own plug-in by following our [beginner](https://developer.ibm.com/urbancode/docs/urbancode-plug-development-tutorial/) and [upgrade](https://developer.ibm.com/urbancode/docs/community-plug-development-upgrade-tutorial/) tutorials. For more documentation on plug-in development, see the [IBM UrbanCode Build help](http://www-01.ibm.com/support/knowledgecenter/SS8NMD_6.1.2/com.ibm.ucbuild.doc/topics/c_node_extend.html) or the [IBM UrbanCode Deploy help](http://www.ibm.com/support/knowledgecenter/SS4GSP_6.2.1/com.ibm.udeploy.doc/topics/c_node_extending.html).
 
 ### Compiling Source
 `gradle`
 
-The helloworld plug-in .zip file can be found in build/distributions after you build the project.
+The aws-ec2-extended plug-in .zip file can be found in build/distributions after you build the project.
 
 ### License
-This plugin is protected under the [Eclipse Public 1.0 License](http://www.eclipse.org/legal/epl-v10.html)# ucd-plugin-aws-ec2
+This plugin is protected under the [Eclipse Public 1.0 License](http://www.eclipse.org/legal/epl-v10.html)
+
+# ucd-plugin-aws-ec2
