@@ -77,6 +77,10 @@ task distPlugin(type: Zip, dependsOn: ['compileGroovy', 'gatherI18n']) {
     into('locale') {
         from buildLocaleDir
     }
+    into ('classes/com')    {
+        from 'src/main/groovy/com'
+    }
+    exclude 'com/**'
     archiveName = "${pluginName}-${releaseVersion}.zip"
 }
 
@@ -88,5 +92,6 @@ task gatherI18n(type: JavaExec) {
     args 'build/locale/en.properties'
     classpath = sourceSets.main.runtimeClasspath
 }
+
 
 task cleanAll(dependsOn: ['clean', 'cleanCopyDeps', 'cleanDistPlugin', 'cleanGatherI18n'])
