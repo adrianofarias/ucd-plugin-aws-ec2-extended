@@ -5,25 +5,42 @@
   <header>
     <identifier id="com.urbancode.air.plugin.aws.ec2.extended" version="@API_VERSION@" name="AWS EC2 Extended"/>
     <description>Amazon EC2 Extended plugin</description>
-    <tag>Cloud/AmazonEC2</tag>
+    <tag>Cloud/AmazonEC2/Extended</tag>
   </header>
-
   <step-type name="AWSCLI Command">
-    <description>Echo out a aws help command output</description>
+    <description>Run a aws command defined by the user</description>
     <properties>
-      <property name="awscli">
+      <property name="aws_access_key_id" required="true">
+        <property-ui type="textBox"
+                     label="Access Key ID"
+                     description="Access Key ID"
+                     default-value="${p:aws_access_key_id}"/>
+      </property>
+      <property name="aws_secret_access_key" required="true">
+        <property-ui type="textBox"
+                     label="Secret Access Key"
+                     description="Secret Access Key"
+                     default-value="${p:aws_secret_access_key}"/>
+      </property>
+      <property name="aws_region">
+        <property-ui type="textBox"
+                     label="Region"
+                     description="Regiao"
+                     default-value="${p?:aws_region}"/>
+      </property>
+      <property name="awscli" required="true">
         <property-ui type="textBox"
                      label="Caminho do AWSCLI"
                      description="Caminho para acionamento do AWSCLI"
                      default-value="aws"/>
       </property>
-      <property name="command">
+      <property name="command" required="true">
         <property-ui type="textBox"
                      label="Comando do AWSCLI"
                      description="Comando a ser executado pelo AWSCLI"
                      default-value="ec2"/>
       </property>
-      <property name="subcommand">
+      <property name="subcommand" required="true">
         <property-ui  type="textBox"
                       label="Sub-Comando do AWSCLI"
                       description="Sub-Comando a ser executado pelo AWSCLI"/>
@@ -44,11 +61,132 @@
         }
      ]]>
     </post-processing>
-
     <command program="${GROOVY_HOME}/bin/groovy">
       <arg value="-cp"/>
       <arg path="classes:lib/groovy-plugin-utils-1.0.jar"/>
       <arg file="awscommand.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Criar Instancia EC2">
+    <description>Criar Instancia EC2 com base em uma imagem AMI</description>
+    <properties>
+      <property name="aws_access_key_id" required="true">
+        <property-ui type="secureBox"
+                     label="Access Key ID"
+                     description="Access Key ID"
+                     default-value="${p:aws_access_key_id}"/>
+      </property>
+      <property name="aws_secret_access_key" required="true">
+        <property-ui type="secureBox"
+                     label="Secret Access Key"
+                     description="Secret Access Key"
+                     default-value="${p:aws_secret_access_key}"/>
+      </property>
+      <property name="aws_region">
+        <property-ui type="textBox"
+                     label="Nome da Regiao"
+                     description="Regiao"
+                     default-value="${p?:aws_region}"/>
+      </property>
+      <property name="awscli" required="true">
+        <property-ui type="textBox"
+                     label="Caminho do AWSCLI"
+                     description="Caminho para acionamento do AWSCLI"
+                     default-value="aws"/>
+      </property>
+      <property name="aws_instance_name" required="true">
+        <property-ui  type="textBox"
+                      label="Nome da instancia"
+                      description="Nome da instancia a ser criada"/>
+      </property>
+      <property name="aws_instance_type" required="true">
+        <property-ui  type="textBox"
+                      label="Tipo da instancia"
+                      description="Tipo da instancia a ser criada"/>
+      </property>
+      <property name="aws_base_ami_id" required="true">
+        <property-ui type="textBox"
+                     label="ID da imagem AMI Base"
+                     description="Identificador da imagem AMI base da instancia"/>
+      </property>
+      <property name="aws_keypair_name">
+        <property-ui  type="textBox"
+                      label="Nome do KeyPair"
+                      description="KeyPair para acessar a instancia"/>
+      </property>
+      <property name="aws_security_groups">
+        <property-ui  type="textBox"
+                      label="Security Groups"
+                      description="Security Groups da instancia"/>
+      </property>
+    </properties>
+    <post-processing>
+      <![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]>
+    </post-processing>
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar"/>
+      <arg file="createEC2Instance.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Aguardar instancia em execucao">
+    <description>Aguardar que a instancia entre em execucao</description>
+    <properties>
+      <property name="aws_access_key_id" required="true">
+        <property-ui type="secureBox"
+                     label="Access Key ID"
+                     description="Access Key ID"
+                     default-value="${p:aws_access_key_id}"/>
+      </property>
+      <property name="aws_secret_access_key" required="true">
+        <property-ui type="secureBox"
+                     label="Secret Access Key"
+                     description="Secret Access Key"
+                     default-value="${p:aws_secret_access_key}"/>
+      </property>
+      <property name="aws_region">
+        <property-ui type="textBox"
+                     label="Nome da Regiao"
+                     description="Region"
+                     default-value="${p?:aws_region}"/>
+      </property>
+      <property name="awscli" required="true">
+        <property-ui type="textBox"
+                     label="Caminho do AWSCLI"
+                     description="Caminho para acionamento do AWSCLI"
+                     default-value="aws"/>
+      </property>
+      <property name="aws_instance_id" required="true">
+        <property-ui  type="textBox"
+                      label="ID da instancia"
+                      description="ID da instancia "/>
+      </property>
+    </properties>
+    <post-processing>
+      <![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]>
+    </post-processing>
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar"/>
+      <arg file="waitForInstanceRunning.groovy"/>
       <arg file="${PLUGIN_INPUT_PROPS}"/>
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
     </command>

@@ -2,6 +2,7 @@ import com.urbancode.air.plugin.aws.AWSHelper;
 
 import com.urbancode.air.AirPluginTool;
 import com.urbancode.air.CommandHelper;
+import groovy.json.JsonSlurper;
 
 final airTool = new AirPluginTool(args[0], args[1])
 
@@ -16,24 +17,16 @@ final def props = airTool.getStepProperties()
  */
 
 final def awscli = props['awscli']
-final def command = props['command']
-final def subcommand = props['subcommand']
-final def arguments = props['arguments']
-
+final def awsInstanceID = props['aws_instance_id']
+		
 def helper = new AWSHelper(airTool)
 
 //Set credentials for login
 helper.setCredentials();
 
-def cli = [awscli]
+//Aguardar por instância em execução
+//Comando: aws ec2 wait running-instances
 
-cli << command
-cli << subcommand
-cli << arguments
-
-CommandHelper cmdHelper = new CommandHelper(new File("."))
-cmdHelper.runCommand("Running aws cli", cli)
-
-//Set an output property
-airTool.setOutputProperty("aws_command", "${cli}");
-airTool.storeOutputProperties();//write the output properties to the file
+def cliWait = [awscli,'ec2','wait','running-instances']
+cliWait << '--instance-ids' << awsInstanceID
+cliWait.execute().waitFor()

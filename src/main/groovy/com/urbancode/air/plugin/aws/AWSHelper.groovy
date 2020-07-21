@@ -28,19 +28,23 @@ public class AWSHelper {
 
     public def setCredentials() {
 
-
         //Credentials - to create .credentials file
         final def awsAccessKeyId = props['aws_access_key_id']
         final def awsSecretAccessKey = props['aws_secret_access_key']
 
-        cmdHelper.runCommand("Set access key", "${awsCli} configure set aws_access_key_id ${awsAccessKeyId}")
-        cmdHelper.runCommand("Set secret access key", "${awsCli} configure set aws_secret_access_key ${awsSecretAccessKey}")
+        def accessKeyCmd = [awsCli,"configure","set","aws_access_key_id",awsAccessKeyId]
+        cmdHelper.runCommand('Set access key', accessKeyCmd)
+        
+        def secretKeyCmd = [awsCli,"configure","set","aws_secret_access_key",awsSecretAccessKey]
+        cmdHelper.runCommand('Set secret access key', secretKeyCmd)
 
         //Configuration - to create .config file
         final def awsRegion = props['aws_region']
 
-        cmdHelper.runCommand("Set aws region", "${awsCli} configure set region ${awsRegion}")
-
+        if (awsRegion)  {
+            def regionCmd = [awsCli,"configure","set","region",awsRegion]
+            cmdHelper.runCommand("Set aws region", regionCmd)
+        }
     }
 /*
     public def startInstances(def ami, def number, def instanceType, def keyPair, def zone,
