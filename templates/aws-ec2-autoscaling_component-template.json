@@ -1,0 +1,525 @@
+{
+    "securityResourceId": "173778b5-20d9-a7cd-378e-62e637c41e5c",
+    "path": "componentTemplates\/173778b5-2103-d57f-5ce5-a98ef6e378fa",
+    "name": "aws-ec2-autoscaling",
+    "description": "",
+    "ignoreQualifiers": 0,
+    "componentType": "STANDARD",
+    "tags": [],
+    "active": true,
+    "envPropDefs": [],
+    "resPropDefs": [],
+    "propDefs": [],
+    "properties": [],
+    "processes": [{
+        "name": "[AWS EC2] Disponibilizar app no Auto-Scaling Group",
+        "description": "",
+        "defaultWorkingDir": "${p:resource\/work.dir}\/${p:component.name}",
+        "takesVersion": true,
+        "inventoryActionType": "ADD",
+        "status": "Active",
+        "configActionType": "ADD",
+        "active": true,
+        "path": "componentTemplates\/173778b5-2103-d57f-5ce5-a98ef6e378fa\/processes\/173778c1-90e6-a1eb-f82c-017b7b54abd8",
+        "deleted": false,
+        "propDefs": [],
+        "rootActivity": {
+            "edges": [
+                {
+                    "to": "Download Artifacts",
+                    "from": "Limpar pasta de trabalho",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Criar Instancia EC2",
+                    "from": "Capturar propriedades do componente",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "b89194f69bacfde2bfd3c9dae6782a",
+                    "from": "Excluir Instancia EC2",
+                    "type": "ALWAYS",
+                    "value": ""
+                },
+                {
+                    "to": "Limpar pasta de trabalho",
+                    "type": "ALWAYS",
+                    "value": ""
+                },
+                {
+                    "to": "Criar imagem AMI",
+                    "from": "Instalar pacote RPM",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Instalar pacote RPM",
+                    "from": "Enviar pacote para a instancia",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Excluir Instancia EC2",
+                    "from": "Atualizar Auto Scaling Group",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Criar Launch Configuration",
+                    "from": "Criar imagem AMI",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Enviar pacote para a instancia",
+                    "from": "Aguardar instancia em execucao",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Atualizar Auto Scaling Group",
+                    "from": "Criar Launch Configuration",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Aguardar instancia em execucao",
+                    "from": "Criar Instancia EC2",
+                    "type": "SUCCESS",
+                    "value": ""
+                },
+                {
+                    "to": "Capturar propriedades do componente",
+                    "from": "Download Artifacts",
+                    "type": "SUCCESS",
+                    "value": ""
+                }
+            ],
+            "offsets": [
+                {
+                    "name": "Capturar propriedades do componente",
+                    "x": -345,
+                    "y": 500,
+                    "h": 120,
+                    "w": 850
+                },
+                {
+                    "name": "Criar Launch Configuration",
+                    "x": -230,
+                    "y": 1520,
+                    "h": 120,
+                    "w": 620
+                },
+                {
+                    "name": "Limpar pasta de trabalho",
+                    "x": -245,
+                    "y": 160,
+                    "h": 120,
+                    "w": 650
+                },
+                {
+                    "name": "Criar Instancia EC2",
+                    "x": -170,
+                    "y": 670,
+                    "h": 120,
+                    "w": 500
+                },
+                {
+                    "name": "b89194f69bacfde2bfd3c9dae6782a",
+                    "x": -10,
+                    "y": 2030,
+                    "h": 110,
+                    "w": 180
+                },
+                {
+                    "name": "Download Artifacts",
+                    "x": -175,
+                    "y": 330,
+                    "h": 120,
+                    "w": 510
+                },
+                {
+                    "name": "Atualizar Auto Scaling Group",
+                    "x": -245,
+                    "y": 1690,
+                    "h": 120,
+                    "w": 650
+                },
+                {
+                    "name": "Instalar pacote RPM",
+                    "x": -130,
+                    "y": 1180,
+                    "h": 120,
+                    "w": 420
+                },
+                {
+                    "name": "Excluir Instancia EC2",
+                    "x": -185,
+                    "y": 1860,
+                    "h": 120,
+                    "w": 530
+                },
+                {
+                    "name": "Aguardar instancia em execucao",
+                    "x": -275,
+                    "y": 840,
+                    "h": 120,
+                    "w": 710
+                },
+                {
+                    "name": "Enviar pacote para a instancia",
+                    "x": -210,
+                    "y": 1010,
+                    "h": 120,
+                    "w": 580
+                },
+                {
+                    "name": "Criar imagem AMI",
+                    "x": -160,
+                    "y": 1350,
+                    "h": 120,
+                    "w": 480
+                }
+            ],
+            "layoutMode": "auto",
+            "type": "graph",
+            "name": "cb723695-33af-48d3-adda-1c28e777a114",
+            "children": [
+                {
+                    "type": "finish",
+                    "name": "b89194f69bacfde2bfd3c9dae6782a",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "pluginVersion": 32,
+                    "commandName": "Download Artifacts",
+                    "pluginName": "UrbanCode Deploy Versioned File Storage",
+                    "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                    "properties": {
+                        "directoryOffset": ".",
+                        "artifactSetBaseDir": "",
+                        "fileIncludePatterns": "**\/*",
+                        "fileExcludePatterns": "",
+                        "syncMode": "true",
+                        "fullVerification": "true",
+                        "setFileExecuteBits": "false",
+                        "verifyFileIntegrity": "false",
+                        "versionId": "${p:version.id}",
+                        "serverUrl": "${p:server.url}",
+                        "compId": "${p:component.id}",
+                        "resId": "${p:resource.id}",
+                        "charset": "",
+                        "label": ""
+                    },
+                    "cachedAuthTokenRestriction": {
+                        "name": "System Default",
+                        "description": "Used by default for any plugin steps without a specified token restriction",
+                        "restrictions": [{
+                            "verb": "ALL",
+                            "url": "\/*"
+                        }]
+                    },
+                    "type": "plugin",
+                    "name": "Download Artifacts",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "pluginVersion": 77,
+                    "commandName": "Get Component Environment Properties",
+                    "pluginName": "IBM UrbanCode Deploy Environments",
+                    "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                    "properties": {
+                        "application": "${p:application.name}",
+                        "environment": "${p:environment.name}",
+                        "component": "${p:component.name}"
+                    },
+                    "cachedAuthTokenRestriction": {
+                        "name": "System Default",
+                        "description": "Used by default for any plugin steps without a specified token restriction",
+                        "restrictions": [{
+                            "verb": "ALL",
+                            "url": "\/*"
+                        }]
+                    },
+                    "type": "plugin",
+                    "name": "Capturar propriedades do componente",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "pluginVersion": 1,
+                    "commandName": "Criar Instancia EC2",
+                    "pluginName": "AWS EC2 Extended",
+                    "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                    "properties": {
+                        "aws_access_key_id": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128keynkhn|JncOv5igwSQUCj+Pm0PvQA==|ttrIG4A1Wy+xik00J43VMdlmFkq79ovnshGd8kHzU8Q=}",
+                        "aws_secret_access_key": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128keynkhn|oFuoT2Vr7z3h0uv3bhBz+Q==|opCWzvgFEzqafcEQw6I7KvthCJO4LgZsHQx4qkJZ+HE=}",
+                        "aws_region": "${p?:aws_region}",
+                        "awscli": "aws",
+                        "aws_instance_name": "${p:component.name}-${p:version.name}",
+                        "aws_instance_type": "${p:Capturar propriedades do componente\/aws-instance-type}",
+                        "aws_base_ami_id": "${p:Capturar propriedades do componente\/aws-base-ami-id}",
+                        "aws_keypair_name": "${p:Capturar propriedades do componente\/aws-keypair-name}",
+                        "aws_security_groups": "${p:Capturar propriedades do componente\/aws-security-groups}"
+                    },
+                    "cachedAuthTokenRestriction": {
+                        "name": "System Default",
+                        "description": "Used by default for any plugin steps without a specified token restriction",
+                        "restrictions": [{
+                            "verb": "ALL",
+                            "url": "\/*"
+                        }]
+                    },
+                    "type": "plugin",
+                    "name": "Criar Instancia EC2",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "pluginVersion": 1,
+                    "commandName": "Aguardar instancia em execucao",
+                    "pluginName": "AWS EC2 Extended",
+                    "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                    "properties": {
+                        "aws_access_key_id": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128keynkhn|m5YFs0c1WJZ+tE0kUG+VWA==|dzv2+nZUSaL7Eu6fVlpa8Q7CEb0LphOjONhiUU8QjCo=}",
+                        "aws_secret_access_key": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128keynkhn|3zPVJ5vgfopdEGmBPNX7PQ==|AmT8MhIf67YOqlQws\/q1qb+WtsX9NTs\/5baMkj3Fa7I=}",
+                        "aws_region": "${p?:aws_region}",
+                        "awscli": "aws",
+                        "aws_instance_id": "${p:Criar Instancia EC2\/aws-instance-id}"
+                    },
+                    "cachedAuthTokenRestriction": {
+                        "name": "System Default",
+                        "description": "Used by default for any plugin steps without a specified token restriction",
+                        "restrictions": [{
+                            "verb": "ALL",
+                            "url": "\/*"
+                        }]
+                    },
+                    "type": "plugin",
+                    "name": "Aguardar instancia em execucao",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "pluginVersion": 1,
+                    "commandName": "Criar imagem AMI",
+                    "pluginName": "AWS EC2 Extended",
+                    "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                    "properties": {
+                        "aws_access_key_id": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128keynkhn|42hZswK1gdkma+wudqhtpA==|4hskkf0vlUVtn\/RU5f\/Qz1RyA+5rwvL\/7nRC9uggCKk=}",
+                        "aws_secret_access_key": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128keynkhn|9NTG4G+M1N2KxFo4us8e8g==|xLCuizobo27hWV1XYKWHYYRISonr6KqN3Cg\/y23H0zU=}",
+                        "aws_region": "${p?:aws_region}",
+                        "awscli": "aws",
+                        "aws_instance_id": "${p:Criar Instancia EC2\/aws-instance-id}",
+                        "aws_ami_name": "${p:component.name}-${p:version.name}"
+                    },
+                    "cachedAuthTokenRestriction": {
+                        "name": "System Default",
+                        "description": "Used by default for any plugin steps without a specified token restriction",
+                        "restrictions": [{
+                            "verb": "ALL",
+                            "url": "\/*"
+                        }]
+                    },
+                    "type": "plugin",
+                    "name": "Criar imagem AMI",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "pluginVersion": 9,
+                    "commandName": "Shell",
+                    "pluginName": "Shell",
+                    "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                    "properties": {
+                        "directoryOffset": ".",
+                        "shellInterpreter": "",
+                        "scriptBody": "scp -o UserKnownHostsFile=\/dev\/null -o StrictHostKeyChecking=no -i ${p:aws_keypair_path} ${p:component.name}.${p:version.name}.rpm ec2-user@${p:Criar Instancia EC2\/aws-instance-public-ip}:${p:install_path}",
+                        "runAsDaemon": "false",
+                        "outputFile": ""
+                    },
+                    "cachedAuthTokenRestriction": {
+                        "name": "System Default",
+                        "description": "Used by default for any plugin steps without a specified token restriction",
+                        "restrictions": [{
+                            "verb": "ALL",
+                            "url": "\/*"
+                        }]
+                    },
+                    "type": "plugin",
+                    "name": "Enviar pacote para a instancia",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "pluginVersion": 9,
+                    "commandName": "Shell",
+                    "pluginName": "Shell",
+                    "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                    "properties": {
+                        "directoryOffset": ".",
+                        "shellInterpreter": "",
+                        "scriptBody": "ssh -o UserKnownHostsFile=\/dev\/null -o StrictHostKeyChecking=no -i ${p:aws_keypair_path} ec2-user@${p:Criar Instancia EC2\/aws-instance-public-ip} 'cd ${p:install_path};rpm -Uv ${p:component.name}.${p:version.name}.rpm'",
+                        "runAsDaemon": "false",
+                        "outputFile": ""
+                    },
+                    "cachedAuthTokenRestriction": {
+                        "name": "System Default",
+                        "description": "Used by default for any plugin steps without a specified token restriction",
+                        "restrictions": [{
+                            "verb": "ALL",
+                            "url": "\/*"
+                        }]
+                    },
+                    "type": "plugin",
+                    "name": "Instalar pacote RPM",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "pluginVersion": 1,
+                    "commandName": "Criar Launch Configuration",
+                    "pluginName": "AWS EC2 Extended",
+                    "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                    "properties": {
+                        "aws_access_key_id": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128keynkhn|+gsCEzfYeZhB8+WtFA7ArQ==|fzExBjYVJcu\/ZeQvpEvS1VEdx5bY6ZJVNchWTvJeHw8=}",
+                        "aws_secret_access_key": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128keynkhn|DJtaym+to6pOnLOVRQnh\/A==|pRpdIyhe4BSsw09wnTmk9ZHk5i2FFQ4ZBChPavldgZ4=}",
+                        "aws_region": "${p?:aws_region}",
+                        "awscli": "aws",
+                        "aws_launch_configuration_name": "${p:component.name}-${p:version.name}",
+                        "aws_ami_id": "${p:Criar imagem AMI\/aws-ami-id}",
+                        "aws_instance_type": "${p:aws-instance-type}",
+                        "aws_keypair_name": "${p:aws-keypair-name}",
+                        "aws_security_groups": "${p:aws-security-groups}"
+                    },
+                    "cachedAuthTokenRestriction": {
+                        "name": "System Default",
+                        "description": "Used by default for any plugin steps without a specified token restriction",
+                        "restrictions": [{
+                            "verb": "ALL",
+                            "url": "\/*"
+                        }]
+                    },
+                    "type": "plugin",
+                    "name": "Criar Launch Configuration",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "pluginVersion": 1,
+                    "commandName": "Atualizar Auto Scaling Group",
+                    "pluginName": "AWS EC2 Extended",
+                    "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                    "properties": {
+                        "aws_access_key_id": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128keynkhn|mVErcuT8kxQX5ZNM40MSPA==|HCo1pCNqzt8kkxzHHVttsYLEExl5jouNjKNTdWcAFEA=}",
+                        "aws_secret_access_key": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128keynkhn|YBVwVx5fkqK1pPzkGOi50w==|ow+OJDmpH3bHPtf7SvJ8lEfLwYUEZbjreYRCOB1CUCc=}",
+                        "aws_region": "${p?:aws_region}",
+                        "awscli": "aws",
+                        "aws_launch_configuration_name": "${p:component.name}-${p:version.name}",
+                        "aws_auto_scaling_group_name": "${p:aws-auto-scaling-group-name}"
+                    },
+                    "cachedAuthTokenRestriction": {
+                        "name": "System Default",
+                        "description": "Used by default for any plugin steps without a specified token restriction",
+                        "restrictions": [{
+                            "verb": "ALL",
+                            "url": "\/*"
+                        }]
+                    },
+                    "type": "plugin",
+                    "name": "Atualizar Auto Scaling Group",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "pluginVersion": 1,
+                    "commandName": "Excluir Instancia EC2",
+                    "pluginName": "AWS EC2 Extended",
+                    "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                    "properties": {
+                        "aws_access_key_id": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128keynkhn|pJG2U8lueqOlEFvpj0WA7w==|L7J7IekOOlJTT3NdKH+coN+fNbaBd\/gqX+hrwGDQxys=}",
+                        "aws_secret_access_key": "crypt_v1{AES\/CBC\/PKCS5Padding|aes128keynkhn|Bdm7yVDG5n5hI\/CNzHUHDA==|zw+ORu80QRjgi3w8ldbTNwI\/fCwQsDHV8YiaRTF+jJU=}",
+                        "aws_region": "${p?:aws_region}",
+                        "awscli": "aws",
+                        "aws_instance_id": "${p:Criar Instancia EC2\/aws-intance-name}"
+                    },
+                    "cachedAuthTokenRestriction": {
+                        "name": "System Default",
+                        "description": "Used by default for any plugin steps without a specified token restriction",
+                        "restrictions": [{
+                            "verb": "ALL",
+                            "url": "\/*"
+                        }]
+                    },
+                    "type": "plugin",
+                    "name": "Excluir Instancia EC2",
+                    "children": []
+                },
+                {
+                    "allowFailure": false,
+                    "useImpersonation": false,
+                    "showHidden": false,
+                    "impersonationUseSudo": false,
+                    "pluginVersion": 63,
+                    "commandName": "Delete Files and Directories",
+                    "pluginName": "File Utils",
+                    "authTokenRestriction": "20000001-0001-0001-0001-000000000000",
+                    "properties": {
+                        "baseDir": ".",
+                        "includes": "**\/*",
+                        "excludes": "",
+                        "followSymlinks": "false",
+                        "caseSensitive": "true"
+                    },
+                    "cachedAuthTokenRestriction": {
+                        "name": "System Default",
+                        "description": "Used by default for any plugin steps without a specified token restriction",
+                        "restrictions": [{
+                            "verb": "ALL",
+                            "url": "\/*"
+                        }]
+                    },
+                    "type": "plugin",
+                    "name": "Limpar pasta de trabalho",
+                    "children": []
+                }
+            ]
+        }
+    }],
+    "genericProcesses": [],
+    "teamMappings": []
+}
