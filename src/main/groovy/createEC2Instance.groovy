@@ -41,7 +41,6 @@ cliCreate << '--tag-specifications' << "ResourceType=instance,Tags=[{Key=Name,Va
 cliCreate << '--query' << 'Instances[0].{InstanceId:InstanceId}'
 cliCreate << '--output' << 'text'
 
-
 def instanciaEC2ID = cliCreate.execute().text
 instanciaEC2ID = instanciaEC2ID.substring(0,instanciaEC2ID.length()-1)
 
@@ -64,6 +63,7 @@ cliDescribe << '--output' << 'text'
 def instanciaEC2PublicIP = cliDescribe.execute().text
 
 if  (instanciaEC2PublicIP)  {
+    instanciaEC2PublicIP = instanciaEC2PublicIP.substring(0,instanciaEC2PublicIP.length()-1)
     println "\nIP Público: "+instanciaEC2PublicIP
     airTool.setOutputProperty("aws-instance-public-ip", instanciaEC2PublicIP)
 } else  {

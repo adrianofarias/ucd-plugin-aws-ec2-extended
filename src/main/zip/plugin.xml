@@ -191,4 +191,238 @@
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
     </command>
   </step-type>
+    <step-type name="Criar imagem AMI">
+    <description>Criar imagem AMI baseada em uma instancia EC2 existente.</description>
+    <properties>
+      <property name="aws_access_key_id" required="true">
+        <property-ui type="secureBox"
+                     label="Access Key ID"
+                     description="Access Key ID"
+                     default-value="${p:aws_access_key_id}"/>
+      </property>
+      <property name="aws_secret_access_key" required="true">
+        <property-ui type="secureBox"
+                     label="Secret Access Key"
+                     description="Secret Access Key"
+                     default-value="${p:aws_secret_access_key}"/>
+      </property>
+      <property name="aws_region">
+        <property-ui type="textBox"
+                     label="Nome da Regiao"
+                     description="Region"
+                     default-value="${p?:aws_region}"/>
+      </property>
+      <property name="awscli" required="true">
+        <property-ui type="textBox"
+                     label="Caminho do AWSCLI"
+                     description="Caminho para acionamento do AWSCLI"
+                     default-value="aws"/>
+      </property>
+      <property name="aws_instance_id" required="true">
+        <property-ui  type="textBox"
+                      label="ID da instancia"
+                      description="ID da instancia"/>
+      </property>
+      <property name="aws_ami_name" required="true">
+        <property-ui  type="textBox"
+                      label="Nome da imagem AMI"
+                      description="Nome atribuido a imagem AMI"/>
+      </property>
+    </properties>
+    <post-processing>
+      <![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]>
+    </post-processing>
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar"/>
+      <arg file="createAMI.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Excluir Instancia EC2">
+    <description>Excluir instancia EC2 existente.</description>
+    <properties>
+      <property name="aws_access_key_id" required="true">
+        <property-ui type="secureBox"
+                     label="Access Key ID"
+                     description="Access Key ID"
+                     default-value="${p:aws_access_key_id}"/>
+      </property>
+      <property name="aws_secret_access_key" required="true">
+        <property-ui type="secureBox"
+                     label="Secret Access Key"
+                     description="Secret Access Key"
+                     default-value="${p:aws_secret_access_key}"/>
+      </property>
+      <property name="aws_region">
+        <property-ui type="textBox"
+                     label="Nome da Regiao"
+                     description="Region"
+                     default-value="${p?:aws_region}"/>
+      </property>
+      <property name="awscli" required="true">
+        <property-ui type="textBox"
+                     label="Caminho do AWSCLI"
+                     description="Caminho para acionamento do AWSCLI"
+                     default-value="aws"/>
+      </property>
+      <property name="aws_instance_id" required="true">
+        <property-ui  type="textBox"
+                      label="ID da instancia"
+                      description="ID da instancia a ser excluida"/>
+      </property>
+    </properties>
+    <post-processing>
+      <![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]>
+    </post-processing>
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar"/>
+      <arg file="terminateEC2Instance.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Criar Launch Configuration">
+    <description>Cria um launch configuration baseado em uma imagem AMI.</description>
+    <properties>
+      <property name="aws_access_key_id" required="true">
+        <property-ui type="secureBox"
+                     label="Access Key ID"
+                     description="Access Key ID"
+                     default-value="${p:aws_access_key_id}"/>
+      </property>
+      <property name="aws_secret_access_key" required="true">
+        <property-ui type="secureBox"
+                     label="Secret Access Key"
+                     description="Secret Access Key"
+                     default-value="${p:aws_secret_access_key}"/>
+      </property>
+      <property name="aws_region">
+        <property-ui type="textBox"
+                     label="Nome da Regiao"
+                     description="Region"
+                     default-value="${p?:aws_region}"/>
+      </property>
+      <property name="awscli" required="true">
+        <property-ui type="textBox"
+                     label="Caminho do AWSCLI"
+                     description="Caminho para acionamento do AWSCLI"
+                     default-value="aws"/>
+      </property>
+      <property name="aws_launch_configuration_name" required="true">
+        <property-ui  type="textBox"
+                      label="Nome do Launch Configuration"
+                      description="Configuração de subida das instâncias no Autoscaling do EC2"/>
+      </property>
+      <property name="aws_ami_id" required="true">
+        <property-ui  type="textBox"
+                      label="ID da imagem AMI"
+                      description="Imagem AMI utilizada para subida das instancias no autoscaling."/>
+      </property>
+      <property name="aws_instance_type" required="true">
+        <property-ui  type="textBox"
+                      label="Tipo da instancia"
+                      description="Tipo de instancia que o launch configuration irá subir."/>
+      </property>
+      <property name="aws_keypair_name">
+        <property-ui  type="textBox"
+                      label="Nome do KeyPair"
+                      description="Chaves de acesso das instancias EC2"/>
+      </property>
+      <property name="aws_security_groups">
+        <property-ui  type="textBox"
+                      label="Security Groups"
+                      description="Security Groups das instancias criadas pelo autoscaling. Inclua o nome de cada grupo separado por espaço."/>
+      </property>
+    </properties>
+    <post-processing>
+      <![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]>
+    </post-processing>
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar"/>
+      <arg file="createLaunchConfiguration.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
+  <step-type name="Atualizar Auto Scaling Group">
+    <description>Atualiza auto scaling group com um launch configuration.</description>
+    <properties>
+      <property name="aws_access_key_id" required="true">
+        <property-ui type="secureBox"
+                     label="Access Key ID"
+                     description="Access Key ID"
+                     default-value="${p:aws_access_key_id}"/>
+      </property>
+      <property name="aws_secret_access_key" required="true">
+        <property-ui type="secureBox"
+                     label="Secret Access Key"
+                     description="Secret Access Key"
+                     default-value="${p:aws_secret_access_key}"/>
+      </property>
+      <property name="aws_region">
+        <property-ui type="textBox"
+                     label="Nome da Regiao"
+                     description="Region"
+                     default-value="${p?:aws_region}"/>
+      </property>
+      <property name="awscli" required="true">
+        <property-ui type="textBox"
+                     label="Caminho do AWSCLI"
+                     description="Caminho para acionamento do AWSCLI"
+                     default-value="aws"/>
+      </property>
+      <property name="aws_launch_configuration_name" required="true">
+        <property-ui  type="textBox"
+                      label="Nome do Launch Configuration"
+                      description="Configuração de subida das instâncias no Autoscaling do EC2"/>
+      </property>
+      <property name="aws_auto_scaling_group_name" required="true">
+        <property-ui  type="textBox"
+                      label="Nome do Auto Scaling Group"
+                      description="Auto Scaling Group que será atualizado com o launch configuration."/>
+      </property>
+    </properties>
+    <post-processing>
+      <![CDATA[
+        if (properties.get("exitCode") != 0) {
+            properties.put(new java.lang.String("Status"), new java.lang.String("Failure"));
+        }
+        else {
+            properties.put("Status", "Success");
+        }
+     ]]>
+    </post-processing>
+    <command program="${GROOVY_HOME}/bin/groovy">
+      <arg value="-cp"/>
+      <arg path="classes:lib/groovy-plugin-utils-1.0.jar"/>
+      <arg file="updateAutoScalingGroup.groovy"/>
+      <arg file="${PLUGIN_INPUT_PROPS}"/>
+      <arg file="${PLUGIN_OUTPUT_PROPS}"/>
+    </command>
+  </step-type>
 </plugin>
