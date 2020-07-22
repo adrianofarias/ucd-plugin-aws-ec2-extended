@@ -27,6 +27,6 @@ helper.setCredentials();
 //Aguardar por instância em execução
 //Comando: aws ec2 wait running-instances
 
-def cliWait = [awscli,'ec2','wait','running-instances']
+def cliWait = [awscli,'ec2','wait','instance-status-ok']
 cliWait << '--instance-ids' << awsInstanceID
 cliWait.execute().waitFor()
