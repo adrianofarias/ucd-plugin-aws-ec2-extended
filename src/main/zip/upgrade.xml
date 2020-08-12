@@ -12,4 +12,13 @@
     <migrate-command name="Criar Launch Configuration"/>
     <migrate-command name="Atualizar Auto Scaling Group"/>
   </migrate>
+  <migrate to-version="2">
+    <migrate-command name="AWSCLI Command"/>
+    <migrate-command name="Criar Instancia EC2"/>
+    <migrate-command name="Aguardar instancia em execucao"/>
+    <migrate-command name="Criar imagem AMI"/>
+    <migrate-command name="Excluir Instancia EC2"/>
+    <migrate-command name="Criar Launch Configuration"/>
+    <migrate-command name="Atualizar Auto Scaling Group"/>
+  </migrate>
 </plugin-upgrade>

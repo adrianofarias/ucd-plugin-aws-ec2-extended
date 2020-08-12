@@ -73,13 +73,13 @@
     <description>Criar Instancia EC2 com base em uma imagem AMI</description>
     <properties>
       <property name="aws_access_key_id" required="true">
-        <property-ui type="secureBox"
+        <property-ui type="textBox"
                      label="Access Key ID"
                      description="Access Key ID"
                      default-value="${p:aws_access_key_id}"/>
       </property>
       <property name="aws_secret_access_key" required="true">
-        <property-ui type="secureBox"
+        <property-ui type="textBox"
                      label="Secret Access Key"
                      description="Secret Access Key"
                      default-value="${p:aws_secret_access_key}"/>
@@ -144,13 +144,13 @@
     <description>Aguardar que a instancia entre em execucao</description>
     <properties>
       <property name="aws_access_key_id" required="true">
-        <property-ui type="secureBox"
+        <property-ui type="textBox"
                      label="Access Key ID"
                      description="Access Key ID"
                      default-value="${p:aws_access_key_id}"/>
       </property>
       <property name="aws_secret_access_key" required="true">
-        <property-ui type="secureBox"
+        <property-ui type="textBox"
                      label="Secret Access Key"
                      description="Secret Access Key"
                      default-value="${p:aws_secret_access_key}"/>
@@ -191,17 +191,17 @@
       <arg file="${PLUGIN_OUTPUT_PROPS}"/>
     </command>
   </step-type>
-    <step-type name="Criar imagem AMI">
+  <step-type name="Criar imagem AMI">
     <description>Criar imagem AMI baseada em uma instancia EC2 existente.</description>
     <properties>
       <property name="aws_access_key_id" required="true">
-        <property-ui type="secureBox"
+        <property-ui type="textBox"
                      label="Access Key ID"
                      description="Access Key ID"
                      default-value="${p:aws_access_key_id}"/>
       </property>
       <property name="aws_secret_access_key" required="true">
-        <property-ui type="secureBox"
+        <property-ui type="textBox"
                      label="Secret Access Key"
                      description="Secret Access Key"
                      default-value="${p:aws_secret_access_key}"/>
@@ -251,13 +251,13 @@
     <description>Excluir instancia EC2 existente.</description>
     <properties>
       <property name="aws_access_key_id" required="true">
-        <property-ui type="secureBox"
+        <property-ui type="textBox"
                      label="Access Key ID"
                      description="Access Key ID"
                      default-value="${p:aws_access_key_id}"/>
       </property>
       <property name="aws_secret_access_key" required="true">
-        <property-ui type="secureBox"
+        <property-ui type="textBox"
                      label="Secret Access Key"
                      description="Secret Access Key"
                      default-value="${p:aws_secret_access_key}"/>
@@ -302,13 +302,13 @@
     <description>Cria um launch configuration baseado em uma imagem AMI.</description>
     <properties>
       <property name="aws_access_key_id" required="true">
-        <property-ui type="secureBox"
+        <property-ui type="textBox"
                      label="Access Key ID"
                      description="Access Key ID"
                      default-value="${p:aws_access_key_id}"/>
       </property>
       <property name="aws_secret_access_key" required="true">
-        <property-ui type="secureBox"
+        <property-ui type="textBox"
                      label="Secret Access Key"
                      description="Secret Access Key"
                      default-value="${p:aws_secret_access_key}"/>
@@ -373,13 +373,13 @@
     <description>Atualiza auto scaling group com um launch configuration.</description>
     <properties>
       <property name="aws_access_key_id" required="true">
-        <property-ui type="secureBox"
+        <property-ui type="textBox"
                      label="Access Key ID"
                      description="Access Key ID"
                      default-value="${p:aws_access_key_id}"/>
       </property>
       <property name="aws_secret_access_key" required="true">
-        <property-ui type="secureBox"
+        <property-ui type="textBox"
                      label="Secret Access Key"
                      description="Secret Access Key"
                      default-value="${p:aws_secret_access_key}"/>
